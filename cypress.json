@@ -1,0 +1,14 @@
+{
+    "$schema": "https://on.cypress.io/cypress.schema.json",
+    "baseUrl": "https://demo.realworld.io/#/",
+    "video": false,
+    "env":{
+        "user": "marcos.junior4@br.experian.com",
+        "pass": "M@rc0s123",
+        "apiUrl": "https://api.realworld.io/api"
+    },
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "configFile": "reporter-config.json"
+    }
+}

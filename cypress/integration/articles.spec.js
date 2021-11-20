@@ -7,10 +7,7 @@ describe ('Articles', () =>{
 
     beforeEach(() => {
         
-        //cy.visit('login')
-
         cy.login()
-
         cy.visit('/')
         
     });
@@ -34,7 +31,6 @@ describe ('Articles', () =>{
         cy.contains('button', 'Publish Article').click()
 
         cy.wait('@postArticles').then(interception =>{
-            //cy.log(interception.response.statusCode)
 
             const slug = interception.response.body.article.slug
 
@@ -46,7 +42,27 @@ describe ('Articles', () =>{
 
     });
 
-    it('Teste', () => {
+    it('Criar artigo sem informar título', () => {
+
+        cy.get('[href*=editor]').click()
+
+        cy.contains('button', 'Publish Article').click()
+
+        cy.get('.error-messages').should('contain', "title can't be blank")
+
+    });
+
+    it('Criar artigo sem informar descrição', () => {
+
+        cy.get('[href*=editor]').click()
+
+        const articleTitle = 'Article Example ' + new Date().getTime()
+
+        cy.get('input[ng-model$=title]').type(articleTitle)
+
+        cy.contains('button', 'Publish Article').click()
+
+        cy.get('.error-messages').should('contain', "description can't be blank")
 
     });
 

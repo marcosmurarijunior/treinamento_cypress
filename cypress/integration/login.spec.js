@@ -1,8 +1,12 @@
 /// <reference types="cypress" />
 
 describe('Login', () => {
+    
+    beforeEach(() => {
+        cy.visit('login')
+    });
+    
     it('Autenticar com credenciais válidas', () => {
-        cy.visit('https://demo.realworld.io/#/login')
 
         cy.get('input[type=email]').type(Cypress.env('user'))
         cy.get('input[type=password]').type(Cypress.env('pass'))
@@ -13,10 +17,9 @@ describe('Login', () => {
     });
 
     it('Autenticar com senha inválida', () => {
-        cy.visit('https://demo.realworld.io/#/login')
 
-        cy.get('input[type=email]').type('marcos.junior4@br.experian.com')
-        cy.get('input[type=password]').type('1234')
+        cy.get('input[type=email]').type('marcos.junior5@mail.com')
+        cy.get('input[type=password]').type('12349')
         cy.contains('button', 'Sign in').click()
 
         cy.get('li[ng-repeat$=errors]').should('be.visible')
@@ -25,10 +28,9 @@ describe('Login', () => {
     });
 
     it('Autenticar com email inválido', () => {
-        cy.visit('https://demo.realworld.io/#/login')
 
-        cy.get('input[type=email]').type('marcos.junior@br.experian.com')
-        cy.get('input[type=password]').type('M@rc0s123')
+        cy.get('input[type=email]').type('marcos.junior@com.br')
+        cy.get('input[type=password]').type('123456')
         cy.contains('button', 'Sign in').click()
 
         cy.get('li[ng-repeat$=errors]').should('be.visible')
